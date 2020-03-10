@@ -1,0 +1,57 @@
+package br.com.microservice.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.microservice.exception.ResoucerNotFoundException;
+import br.com.microservice.model.Person;
+import br.com.microservice.repository.PersonRepository;
+
+
+//@Sevice - essa anotação serve para o spring cuida da injeção de dependencia da classe
+@Service
+public class PersonServices {
+	
+	@Autowired
+	PersonRepository repository;
+	
+	public Person create(Person person) {
+		return repository.save(person);
+	}
+	
+	public List<Person> findAll() {
+		return repository.findAll();
+		
+	}
+	
+	public Person findById(Long id) {
+	
+		return repository.findById(id)
+				.orElseThrow(() -> new ResoucerNotFoundException("No records for this ID"));
+		
+	}
+	
+	public Person update(Person person) {
+		
+		Person entity = repository.findById(person.getId())
+				.orElseThrow(() -> new ResoucerNotFoundException("No records for this ID"));
+		entity.setFirstName(person.getFirstName());
+		entity.setLastName(person.getLastName());
+		entity.setAdress(person.getAdress());
+		entity.setGender(person.getGender());
+		
+		return repository.save(entity);
+	}
+	
+	
+	public void delete(Long id) {
+		
+		Person entity = repository.findById(id)
+				.orElseThrow(() -> new ResoucerNotFoundException("No records for this ID"));
+		repository.delete(entity);
+		
+	}
+
+}
