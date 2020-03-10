@@ -15,24 +15,6 @@ public class PersonServices {
 	
 	private final AtomicLong counter = new AtomicLong();
 	
-	public Person create(Person person) {		
-		//aqui estaria a lógica para a base de dados
-		return person;
-	}
-	
-	
-	public Person update(Person person) {			
-		return person;
-	}
-	
-	
-	public void delete(String id) {
-		/*Vou até a base de dados, banco e vejo se existe dado.
-		 * Se existir dado eu deleto.
-		 * Se não, lança uma exceção
-		 * */
-	}
-	
 	public Person findById(String id) {
 		Person person = new Person();
 		person.setId(counter.incrementAndGet());
@@ -59,7 +41,7 @@ public class PersonServices {
 		person.setId(counter.incrementAndGet());
 		person.setFirstName("Person Name" + i);
 		person.setLastName("Last Name" + i);
-		person.setAdress("Some addres in Brasil" + i);
+		person.setAdress("Some ddres in Brasil");
 		person.setGender("Male");
 		return person;
 	}
